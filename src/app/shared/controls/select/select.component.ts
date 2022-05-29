@@ -32,7 +32,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
   private propagateTouched: any = () => {};
 
   writeValue(obj: Value): void {
-    throw new Error('Method not implemented.');
+    this.value = obj;
   }
 
   registerOnChange(fn: any): void {
