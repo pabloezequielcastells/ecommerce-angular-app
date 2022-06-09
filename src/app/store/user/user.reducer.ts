@@ -20,6 +20,19 @@ export function reducer(
   action: fromActions.All | any
 ): UserState {
   switch (action.type) {
+    // Init
+    case fromActions.Types.INIT: {
+      return { ...state, loading: true };
+    }
+    case fromActions.Types.INIT_AUTHORIZED: {
+      return { ...state, loading: false, entity: action.user, uid: action.uid, error: null };
+    }
+    case fromActions.Types.INIT_UNAUTHORIZED: {
+      return { ...state, loading: false, entity: null, uid: null, error: null };
+    }
+    case fromActions.Types.INIT_ERROR: {
+      return { ...state, loading: false, error: action.error };
+    }
     // Sign in
     case fromActions.Types.SIGN_IN_EMAIL: {
       return { ...state, loading: true, error: null };

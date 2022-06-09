@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Pipe } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -29,6 +29,7 @@ export class UserEffects {
     private router: Router,
     private notification: NotificationService
   ) {}
+
 
   sigUpEmail: Observable<Action> = createEffect(() =>
     this.actions.pipe(
@@ -74,6 +75,7 @@ export class UserEffects {
               .valueChanges()
               .pipe(
                 take(1),
+                tap(() => this.router.navigate(['/'])),
                 map(
                   (user) =>
                     new fromActions.SignInEmailSuccess(
@@ -105,5 +107,23 @@ export class UserEffects {
         )
       )
     )
+  );
+
+  init: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+        ofType(fromActions.Types.INIT),
+        switchMap(() => this.afAuth.authState.pipe(take(1))),
+        switchMap((authState) => {
+          if (authState) {
+            return this.afs.doc<User>(`users/${authState.uid}`).valueChanges().pipe(
+              take(1),
+              map((user) => new fromActions.InitAuthorized(authState.uid, user ?? null)),
+              catchError(error  => of(new fromActions.InitError(error.message)))
+            )
+          } else {
+            return of(new fromActions.InitUnauthorized());
+          }
+        })
+      )
   );
 }
