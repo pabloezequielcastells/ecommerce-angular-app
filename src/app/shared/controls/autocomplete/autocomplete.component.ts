@@ -12,7 +12,7 @@ import {
   NG_VALUE_ACCESSOR,
   FormBuilder,
   FormGroup,
-  FormControl,
+  UntypedFormControl,
   Validators,
 } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
@@ -46,7 +46,7 @@ export class AutocompleteComponent
 
   @Output() changed = new EventEmitter<Value>();
 
-  formControl = new FormControl();
+  formControl = new UntypedFormControl();
   options$!: Observable<ControlItem[]>;
 
   private destroy = new Subject<any>();

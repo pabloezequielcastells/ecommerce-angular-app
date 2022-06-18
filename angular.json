@@ -125,6 +125,5 @@
                 }
             }
         }
-    },
-    "defaultProject": "ecommerce-angular-app"
+    }
 }

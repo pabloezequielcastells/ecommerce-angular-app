@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { regex, regexErrors, markFormGroupTouched } from '@app/shared';
@@ -15,11 +15,11 @@ import * as fromUser from '@app/store/user';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationComponent implements OnInit {
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   regexErrors = regexErrors;
   loading$!: Observable<boolean | null | undefined>;
 
-  constructor(private fb: FormBuilder, private store: Store<fromRoot.State>) {}
+  constructor(private fb: UntypedFormBuilder, private store: Store<fromRoot.State>) {}
 
   ngOnInit(): void {
     this.loading$ = this.store.pipe(select(fromUser.getLoading));
@@ -67,7 +67,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   private repeatPasswordValidator(
-    group: FormGroup
+    group: UntypedFormGroup
   ): { [key: string]: boolean } | null {
     const pass = group.get('password');
     const passRepeat = group.get('passwordRepeat');

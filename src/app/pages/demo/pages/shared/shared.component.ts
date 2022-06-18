@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { regex, regexErrors, markFormGroupTouched } from '@app/shared/utils';
 import { ControlItem } from '@app/models/frontend';
 import { NotificationService } from '@app/services';
@@ -10,13 +10,13 @@ import { NotificationService } from '@app/services';
   styleUrls: ['./shared.component.scss'],
 })
 export class SharedComponent implements OnInit {
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   isInline: boolean = true;
   showSpinner: boolean = false;
   regexError = regexErrors;
   items: ControlItem[];
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private notification: NotificationService) {
 
     this.items = [

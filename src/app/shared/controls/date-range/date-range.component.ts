@@ -1,5 +1,5 @@
 import { Component, OnInit, forwardRef, Input, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormBuilder, FormGroup } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { FormFieldComponent } from '../form-field/form-field.component';
 
@@ -30,9 +30,9 @@ export class DateRangeComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder!: Placeholder;
   @Output() change = new EventEmitter<Value>();
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
-  constructor( private fb: FormBuilder ) { }
+  constructor( private fb: UntypedFormBuilder ) { }
 
   get min(): Date {
     const from = this.form.controls['from']?.value;

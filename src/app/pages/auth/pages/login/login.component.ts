@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import * as fromRoot from '@app/store';
 import * as fromUser from '@app/store/user';
 import { Observable } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +14,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loading$!: Observable<boolean | null | undefined>;
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   regexErrors = regexErrors;
 
-  constructor(private fb: FormBuilder, private store: Store<fromRoot.State>) {}
+  constructor(private fb: UntypedFormBuilder, private store: Store<fromRoot.State>) {}
 
   ngOnInit(): void {
     this.loading$ = this.store.pipe(select(fromUser.getLoading));
